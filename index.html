@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Explain Git with D3</title>
+<script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/1140/2.0/1140.css">
+<link rel="stylesheet" href="css/explaingit.css">
+</head>
+<body>
+<a href="https://github.com/onlywei/explain-git-with-d3" id="fork-me">
+  <img style="position: absolute; top: 0; right: 0; border: 0;"
+    src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+    alt="Fork me on GitHub">
+</a>
+<div class="container">
+  <div class="row intro">
+    <div class="twelvecol">
+      <h1>Visualizando Conceitos Git com D3</h1>
+      <p>
+        Este site foi projetado para ajudar você a entender visualmente alguns conceitos básicos do git.
+        Esta é minha primeira tentativa de usar o SVG e o D3. Espero que seja útil para você.
+      </p>
+      <p>
+        Adicionar/preparar seus arquivos para confirmação não será coberto por este site. Em todos 
+        os cenários deste site, apenas considere que você sempre tenha arquivos preparados e prontos
+        para fazer commit o tempo todo.
+        Se você precisar de uma atualização sobre como adicionar ou preparar arquivos para fazer commit, leia
+        <a href="http://git-scm.com/book/pt-br/v2">Fundamentos do Git</a>.
+      </p>
+      <p>
+        As caixas estão divididos por comandos git específicos, listados abaixo.
+      </p>
+    </div>
+  </div>
+  <div class="row command-list">
+    <div class="twocol">
+      <h4>Comandos Básicos</h3>
+      <a id="open-commit" class="openswitch" href="#commit">git commit</a>
+      <a id="open-branch" class="openswitch" href="#branch">git branch</a>
+    </div>
+    <div class="twocol">
+      <h4>&nbsp;</h4>
+      <a id="open-checkout" class="openswitch" href="#checkout">git checkout</a>
+      <a id="open-checkout-b" class="openswitch" href="#checkout-b">git checkout -b</a>
+    </div>
+    <div class="twocol">
+      <h4>Desfazer Commits</h4>
+      <a id="open-reset" class="openswitch" href="#reset">git reset</a>
+      <a id="open-revert" class="openswitch" href="#revert">git revert</a>
+    </div>
+    <div class="twocol">
+      <h4>Combinar Branches</h4>
+      <a id="open-merge" class="openswitch" href="#merge">git merge</a>
+      <a id="open-rebase" class="openswitch" href="#rebase">git rebase</a>
+    </div>
+    <div class="twocol">
+      <h4>Servidor Remoto</h4>
+      <a id="open-fetch" class="openswitch" href="#fetch">git fetch</a>
+      <a id="open-pull" class="openswitch" href="#pull">git pull</a>
+    </div>
+    <div class="twocol last">
+      <h4>&nbsp;</h4>
+      <a id="open-push" class="openswitch" href="#push">git push</a>
+      <a id="open-tag" class="openswitch" href="#tag">git tag</a>
+    </div>
+  </div>
+  <div class="row concept-area">
+    <div id="ExplainGitCommit-Container" class="twelvecol concept-container">
+      <p>
+        Vamos pular as instruções sobre como adicionar seus arquivos para commit nesta explicação.
+        Vamos supor que você já saiba fazer isso. Se não, leia outros tutoriais.
+      </p>
+      <p>
+        Considere que você já tem seus arquivos testados para confirmação e digite <span class="cmd">git commit</span>
+        quantas vezes você quiser na caixa do terminal.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitTag-Container" class="twelvecol concept-container">
+      <p>
+        <span class="cmd">git tag nome</span> irá criar uma nova tag chamada "nome".
+        A criação de tags apenas cria uma nova tag apontando para o commit atualmente verificado.
+      </p>
+      <p>
+        As tags podem ser excluídas usando o comando <span class="cmd">git tag -d nome</span> (em breve).
+      </p>
+      <p>
+        Digite os comandos <span class="cmd">git commit</span> e <span class="cmd">git tag</span>
+        quantas vezes quiser até que você entenda este conceito.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitBranch-Container" class="twelvecol concept-container">
+      <p>
+        <span class="cmd">git branch nome</span> irá criar um novo branch chamado "nome".
+        A criação de branches apenas cria uma nova tag apontando para o commit atualmente em check-out.
+      </p>
+      <p>
+        Os branches podem ser excluídos usando o comando <span class="cmd">git branch -d nome</span>.
+      </p>
+      <p>
+        Digite os comandos <span class="cmd">git commit</span> e <span class="cmd">git branch</span> 
+        quantas vezes quiser até que você entenda este conceito
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitCheckout-Container" class="twelvecol concept-container">
+      <p>
+        O <span class="cmd">git checkout</span> tem diversos usos,
+        mas o principal é alternar entre branches.</br>
+        Por exemplo, para alternar entre o branch main e o branch dev,
+        eu digitaria <span class="cmd">git checkout dev</span>.
+        Depois disso, se eu fizer um git commit, observe para onde ele vai. Experimente.
+      </p>
+      <p>
+        Além de fazer check-out de branches, você também pode fazer check-out de commits individuais. Experimente.</br>
+        Faça um novo commit e então digite <span class="cmd">git checkout bb92e0e</span>
+        e veja o que acontece.
+      </p>
+      <p>
+        Digite os comandos <span class="cmd">git commit</span>, <span class="cmd">git branch</span>,
+        e <span class="cmd">git checkout</span> quantas vezes quiser 
+        até que você entenda este conceito.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitCheckout-b-Container" class="twelvecol concept-container">
+      <p>
+        Você pode combinar <span class="cmd">git branch</span> e <span class="cmd">git checkout</span>
+        em um único comando digitando <span class="cmd">git checkout -b nomebranch</span>.
+        Isto irá criar o branch se ele ainda não existir e imediatamente verificá-lo.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitReset-Container" class="twelvecol concept-container">
+      <p>
+        O <span class="cmd">git reset</span> irá retornar o HEAD e o branch atual para onde você
+        definir, 
+        abandonando quaisquer commits que possam ter sido deixados para trás. Isso é útil para 
+        desfazer um commit que você não precisa mais.        
+      </p>
+      <p>
+        Este comando é normalmente usado com uma destas três flags: "--soft", "--mixed", e "--hard".
+        As tags soft e mixed tratam do que fazer com o trabalho que estava dentro do commit depois de 
+        você redefinir; você pode ler sobre isso <a href="http://git-scm.com/book/pt-br/v2">aqui</a>.
+        Como esta visualização não pode exibir graficamente esse trabalho, apenas a flag"--hard" irá 
+        funcionar neste site.
+      </p>
+      <p>
+        A referência "HEAD^" normalmente é usada juntamente com este comando. "HEAD^" significa "o último commit 
+        antes do HEAD. "HEAD^^" significa "dois commits antes do HEAD", e assim por diante.
+      </p>
+      <p>
+        Observe que você <b>nunca</b> deve usar <span class="cmd">git reset</span> para abandonar commits
+        que já foram enviados e mesclados na origem. Isso pode fazer com que seu repositório local
+        fique fora de sincronia com a origem.  Não faça isso a menos que você realmente saiba o que 
+        está fazendo.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitRevert-Container" class="twelvecol concept-container">
+      <p>
+        Para desfazer commits que já foram enviados e compartilhados com a equipe, não podemos usar o comando
+        <span class="cmd">git reset</span>. Em vez disso, devemos usar o comando <span class="cmd">git revert</span>.
+      </p>
+      <p>
+        O <span class="cmd">git revert</span>irá criar um novo commit que irá desfazer todo o trabalho que
+        foi feito no commit que você deseja reverter.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitMerge-Container" class="twelvecol concept-container">
+      <p>
+        O <span class="cmd">git merge</span> irá criar um novo commit com dois pais. O registro o 
+        commit resultante terá todo o trabalho que foi feito em ambos os branches.
+      </p>
+      <p>
+        Se não houver divergência entre os dois commits, o git fará um merge de método "avanço rápido".</br>
+        Para ver isso acontecer, verifique o branch 'ff' e digite <span class="cmd">git merge dev</span>.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitRebase-Container" class="twelvecol concept-container">
+      <p>
+        O <span class="cmd">git rebase</span>irá pegar os commits neste branch e "movê-los" de forma que sua nova 
+        "base" esteja no ponto que você especificar.
+      </p>
+      <p>
+        Você deve prestar atenção aos IDs de confirmação dos círculos conforme eles se movem quando você faz este 
+        exercício.
+      </p>
+      <p>
+        A razão pela qual coloquei "movê-los" entre aspas é que esse processo na verdade gera novos commits com IDs
+        completamente diferentes dos commits antigos, e deixa os commits antigos onde estavam. Por esta razão, 
+        você nunca irá rebasear commits que já foram compartilhados com a equipe com a qual você está trabalhando.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitFetch-Container" class="twelvecol concept-container">
+      <p>
+        O <span class="cmd">git fetch</span> irá atualizar todos os "ramos de rastreamento remoto" em seu repositório local.
+        Branches de rastreamento remoto são marcados em cinza.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitPull-Container" class="twelvecol concept-container">
+      <p>
+        Um <span class="cmd">git pull</span> é um processo de duas etapas que primeiro faz um <span class="cmd">git fetch</span>,
+        e então faz um <span class="cmd">git merge</span> do branch de rastreamento remoto associado ao seu branch atual.
+        Se você não tem um branch atual, o processo irá parar após buscá-lo.
+      </p>
+      <p>
+        Se o argumento "--rebase" for fornecido ao digitar-se <span class="cmd">git pull --rebase</span>, o segundo passo do
+        processo pull será um rebase em vez de um merge. Isso pode ser definido como comportamento padrão por configuração 
+        digitando-se:
+        <span class="cmd">git config branch.NOMEBRANCH.rebase true</span>.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitPush-Container" class="twelvecol concept-container">
+      <p>
+        Um <span class="cmd">git push</span> irá encontrar os commits que você tem em seu branch local que o branch 
+        correspondente no servidor de origem não tem, e os enviará para o repositório remoto.
+      </p>
+      <p>
+        Por padrão, todos os envios devem causar um merge de avanço rápido no repositório remoto. Se houver alguma 
+        divergência entre seu branch local e o branch remoto, seu push será rejeitado. Neste cenário, você precisa 
+        fazer um pull primeiro e, em seguida, poderá fazer o push novamente.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitClean-Container" class="twelvecol concept-container">
+      <p>
+        Um exemplo simples do uso de <span class="cmd">git reset</span> é restaurar completamente o estado do seu 
+        repositório local para o de origem.</br>
+        Você pode fazer isso digitando <span class="cmd">git reset origin/master</span>.
+      </p>
+      <p>
+       Observe que isso não excluirá arquivos não rastreados. Você terá que excluí-los separadamente com
+       o comando <span class="cmd">git clean -df</span>.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitFetchRebase-Container" class="twelvecol concept-container">
+      <p>
+        Abaixo está uma situação em que você está trabalhando em um branch local que é todo seu. Você deseja receber 
+        o código mais recente do branch master do servidor de origem. Para atualizar seu branch local, você pode 
+        fazer isso sem ter que alternar entre os branches!
+      </p>
+      <p>
+        Primeiro faça um <span class="cmd">git fetch</span>, então digite <span class="cmd">git rebase origin/master</span>!
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitDeleteBranches-Container" class="twelvecol concept-container">
+      <p>
+        O <span class="cmd">git branch -d</span> é usado para excluir branches.
+        Eu pré-criei um monte de branches para você excluir no playground abaixo.
+        Dê uma olhada.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+    <div id="ExplainGitFree-Container" class="twelvecol concept-container">
+      <p>
+        Faça o que quiser neste playground grátis.
+      </p>
+      <div class="playground-container"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelvecol">
+      <h2>Exemplos Específicos</h2>
+      <p>Abaixo, criei alguns cenários específicos do mundo real que considero bastante comuns e úteis.</p>
+    </div>
+  </div>
+  <div class="row example-list">
+    <div class="tencol">
+      <a id="open-clean" class="openswitch" href="#clean">Restaurar Branch Local para o Estado do Servidor de Origem</a>
+      <a id="open-fetchrebase" class="openswitch" href="#fetchrebase">Atualizar Branch Local Privado com a Mais Recente Atualização da Origem</a>
+      <a id="open-deletebranches" class="openswitch" href="#deletebranches">Excluindo Branches Locais</a>
+    </div>
+    <div class="twocol last">
+      <a id="open-freeplay" class="openswitch" href="#freeplay">Playground Gratuito</a>
+      <a id="open-zen" class="openswitch" href="#zen">Modo Zen</a>
+    </div>
+  </div>
+</div>
+
+<div id="ExplainGitZen-Container" style="display:none">
+    <div class="playground-container"></div>
+</div>
+
+<svg version="1.1" baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     width="0" height="0">
+
+    <marker id="triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#666"
+            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="faded-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#DDD"
+            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="brown-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#663300"
+            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+</svg>
+
+<script type="text/javascript">
+require(['explaingit'], function (explainGit) {
+    var examples = {
+        'commit': {
+            name: 'Commit',
+            height: 200,
+            baseLine: 0.4,
+            commitData: [
+                {id: 'e137e9b', tags: ['master']}
+            ],
+            initialMessage: 'Digite git commit algumas vezes.'
+        },
+        'branch': {
+            name: 'Branch',
+            baseLine: 0.6,
+            commitData: [
+                {id: 'e137e9b', tags: ['master']}
+            ]
+        },
+        'tag': {
+            name: 'Tag',
+            baseLine: 0.6,
+            commitData: [
+                {id: 'e137e9b', tags: ['master']}
+            ]
+        },
+        'checkout': {
+            name: 'Checkout',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b'},
+                {id: 'bb92e0e', parent: 'e137e9b', tags: ['master']},
+                {id: 'e088135', parent: 'e137e9b', tags: ['dev']}
+            ],
+            initialMessage:
+                'Use os comandos git checkout, git branch, e git commit até você entender.'
+        },
+        'checkout-b': {
+            name: 'Checkout-b',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b'},
+                {id: 'f5b32c8', parent: 'e137e9b'},
+                {id: 'bb92e0e', parent: 'f5b32c8', tags: ['master']},
+                {id: 'e088135', parent: 'e137e9b', tags: ['dev']}
+            ],
+            initialMessage:
+                'Use os comandos git checkout -b e git commit até você entender.'
+        },
+        'reset': {
+            name: 'Reset',
+            height: 200,
+            baseLine: 0.5,
+            commitData: [
+                {id: 'e137e9b'},
+                {id: '0e70093', parent: 'e137e9b'},
+                {id: '3e33afd', parent: '0e70093', tags: ['master']}
+            ],
+            initialMessage: 'Digite "git reset HEAD^".'
+        },
+        'revert': {
+            name: 'Revert',
+            height: 200,
+            baseLine: 0.5,
+            commitData: [
+                {id: 'e137e9b'},
+                {id: '0e70093', parent: 'e137e9b'},
+                {id: '3e33afd', parent: '0e70093', tags: ['master']}
+            ],
+            initialMessage: 'Digite "git revert 0e70093".'
+        },
+        'merge': {
+            name: 'Merge',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b'},
+                {id: 'bb92e0e', parent: 'e137e9b', tags: ['master']},
+                {id: 'f5b32c8', parent: 'e137e9b', tags: ['ff']},
+                {id: 'e088135', parent: 'f5b32c8', tags: ['dev']}
+            ],
+            initialMessage:
+                'Digite "git merge dev".'
+        },
+        'rebase': {
+            name: 'Rebase',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b'},
+                {id: 'bb92e0e', parent: 'e137e9b', tags: ['master']},
+                {id: 'f5b32c8', parent: 'e137e9b'},
+                {id: 'e088135', parent: 'f5b32c8', tags: ['dev']}
+            ],
+            currentBranch: 'dev',
+            initialMessage:
+                'Digite "git rebase master".'
+        },
+        'fetch': {
+            name: 'Fetch',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b', tags: ['origin/master']},
+                {id: '6ce726f', parent: 'e137e9b'},
+                {id: 'bb92e0e', parent: '6ce726f', tags: ['master']},
+                {id: '0cff760', parent: 'e137e9b', tags: ['origin/dev']},
+                {id: '4ed301d', parent: '0cff760', tags: ['dev']}
+            ],
+            originData: [
+                {id: 'e137e9b'},
+                {id: '7eb7654', parent: 'e137e9b'},
+                {id: '090e2b8', parent: '7eb7654'},
+                {id: 'ee5df4b', parent: '090e2b8', tags: ['master']},
+                {id: '0cff760', parent: 'e137e9b'},
+                {id: '2f8d946', parent: '0cff760'},
+                {id: '29235ca', parent: '2f8d946', tags: ['dev']}
+            ],
+            initialMessage:
+                'Compare cuidadosamente os IDs de commit entre a origem e o repositório local. ' +
+                'Então digite "git fetch".'
+        },
+        'pull': {
+            name: 'Pull',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b', tags: ['origin/master']},
+                {id: '46d095b', parent: 'e137e9b', tags: ['master']}
+            ],
+            originData: [
+                {id: 'e137e9b'},
+                {id: '7eb7654', parent: 'e137e9b'},
+                {id: '090e2b8', parent: '7eb7654'},
+                {id: 'ee5df4b', parent: '090e2b8', tags: ['master']}
+            ],
+            initialMessage:
+                'Compare cuidadosamente os IDs de commit entre a origem e o repositório local. ' +
+                'Então digite "git pull".'
+        },
+        'push': {
+            name: 'Push',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b', tags: ['origin/master']},
+                {id: '46d095b', parent: 'e137e9b', tags: ['master']}
+            ],
+            originData: [
+                {id: 'e137e9b'},
+                {id: '7eb7654', parent: 'e137e9b', tags: ['master']}
+            ],
+            initialMessage:
+                'Compare cuidadosamente os IDs de commit entre a origem e o repositório local. ' +
+                'Então digite type "git push".'
+        },
+        'clean': {
+            name: 'Clean',
+            height: 200,
+            baseLine: 0.4,
+            commitData: [
+                {id: 'e137e9b', tags: ['origin/master']},
+                {id: '0e70093', parent: 'e137e9b'},
+                {id: '3e33afd', parent: '0e70093', tags: ['master']}
+            ],
+            initialMessage: 'Digite "git reset origin/master".'
+        },
+        'fetchrebase': {
+            name: 'FetchRebase',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b', tags: ['origin/master', 'master']},
+                {id: '46d095b', parent: 'e137e9b'},
+                {id: 'dccdc4d', parent: '46d095b', tags: ['my-branch']}
+            ],
+            currentBranch: 'my-branch',
+            originData: [
+                {id: 'e137e9b'},
+                {id: '7eb7654', parent: 'e137e9b'},
+                {id: '090e2b8', parent: '7eb7654'},
+                {id: 'ee5df4b', parent: '090e2b8', tags: ['master']}
+            ],
+            initialMessage:
+                'Digite primeiramente "git fetch". Então digite "git rebase origin/master".'
+        },
+        'deletebranches': {
+            name: 'DeleteBranches',
+            height: 500,
+            baseLine: 0.6,
+            commitData: [
+                {id: 'e137e9b'},
+                {id: 'bb92e0e', parent: 'e137e9b'},
+                {id: 'd25ee9b', parent: 'bb92e0e', tags: ['master']},
+                {id: '071ff28', parent: 'e137e9b', tags: ['protoss']},
+                {id: 'f5b32c8', parent: 'bb92e0e'},
+                {id: 'e088135', parent: 'f5b32c8', tags: ['zerg']},
+                {id: '9e6c322', parent: 'bb92e0e'},
+                {id: '593ae02', parent: '9e6c322', tags: ['terran']}
+            ],
+            currentBranch: 'terran',
+            initialMessage:
+                'Exclua alguns branches.'
+        },
+        'freeplay': {
+            name: 'Free',
+            height: 500,
+            commitData: [
+                {id: 'e137e9b', tags: ['origin/master', 'master']}
+            ],
+            originData: [
+                {id: 'e137e9b'},
+                {id: '7eb7654', parent: 'e137e9b'},
+                {id: '090e2b8', parent: '7eb7654'},
+                {id: 'ee5df4b', parent: '090e2b8', tags: ['master']}
+            ],
+            initialMessage:
+                'Divirta-se.'
+        }
+    };
+
+    window.addEventListener('hashchange', open, false);
+    window.addEventListener('load', open, false);
+    
+    function open() {
+        var hash = window.location.hash.substr(1),
+            linkId = 'open-' + hash,
+            example = examples[hash];
+        
+        if (example) {
+            explainGit.reset();
+            document.getElementById(linkId).classList.add('selected');
+            explainGit.open(example);
+        } else if (hash === 'zen') {
+            var elements = document.getElementsByClassName('row');
+            for(var i = 0; i != elements.length; ++i)
+            {
+              elements[i].style.display = 'none';
+            }
+            document.getElementById('fork-me').style.display = 'none';
+            
+            explainGit.reset();
+
+            explainGit.open({
+                name: 'Zen',
+                height: '100%',
+                commitData: [
+                    {id: 'e137e9b', tags: ['master'], message: 'primeiro commit'}
+                ],
+                initialMessage:
+                    'Divirta-se.'
+            });
+        }
+    }
+});
+</script>
+</body>
+</html>
